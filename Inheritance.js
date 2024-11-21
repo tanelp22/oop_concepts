@@ -72,12 +72,10 @@ class Rectangle extends Shape {
 
 class Paint {
     constructor(shape){
-        console.log(shape)
         this.s=[]
-        if(shape != undefined){
+        if(shape){
             this.addShape(shape)
         }
-        console.log()
     }
 
     addShape(shape){
@@ -85,7 +83,19 @@ class Paint {
     }
 
     getShapes(){
-        return this.s
+        return this.s.map(shape => shape.print());
+    }
+    calculateTotalArea() {
+        return this.s.reduce((total, shape) => total + shape.getArea(), 0);
+    }
+    getCircles(){
+        return this.s.filter(shape => shape instanceof Circle).map(circle => circle.print());
+    }
+    getSquares(){
+        return this.s.filter(shape => shape instanceof Square).map(square => square.print());
+    }
+    getRectangles(){
+        return this.s.filter(shape => shape instanceof Rectangle).map(rectangle => rectangle.print());
     }
 }
 
@@ -110,4 +120,12 @@ const painter = new Paint(rect1)
 console.log(painter)
 painter.addShape(square1)
 console.log(painter)
-console.log(painter.getShapes)
+console.log(painter.getShapes())
+console.log(painter.calculateTotalArea())
+console.log(painter.getCircles())
+painter.addShape(circle1)
+const circ2 =  new Circle('Pink', 1)
+painter.addShape(circ2)
+console.log(painter.getCircles())
+console.log(painter.getRectangles())
+console.log(painter.getSquares())
